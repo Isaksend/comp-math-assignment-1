@@ -1,5 +1,6 @@
 import math
 import matplotlib.pyplot as plt
+import pandas as pd
 
 # The function is second equation
 def f(x):
@@ -84,12 +85,13 @@ def IterationMethod(x0, tol=0.001, max_iter=20):
     print("\nIteration Method:")
     for i in range(1, max_iter + 1):
         x1 = g(x0)
-        print(f"Iteration {i}: x = {x1:.5f}")
         approximations.append(x1)
+        print(f"Iteration {i}: x = {x1:.5f}")
         if abs(x1 - x0) < tol:
             print(f"The problem solved: x = {x1:.5f}")
-            return approximations
+            break
         x0 = x1
+
     print("The root not found, not enough iterations.")
     return approximations
 
@@ -114,3 +116,30 @@ plt.title("Comparison of Numerical Methods")
 plt.legend()
 plt.grid()
 plt.show()
+
+# Limitation number of iteration for correctly compare results
+iterations = max(len(bisection_approximations),
+                 len(iteration_approximations),
+                 len(newton_approximations),
+                 len(secant_approximations))
+
+def pad_list(lst, length):
+    return lst + ['...'] * (length - len(lst))
+
+bisection_approximations = pad_list(bisection_approximations, iterations)
+iteration_approximations = pad_list(iteration_approximations, iterations)
+newton_approximations = pad_list(newton_approximations, iterations)
+secant_approximations = pad_list(secant_approximations, iterations)
+
+#This is data frame for table
+data = {
+    "Root": [f"x{i}" for i in range(iterations)],
+    "1st method (Bisection)": bisection_approximations,
+    "2nd method (Iteration)": iteration_approximations,
+    "3rd method (Newton-Raphson)": newton_approximations,
+    "4th method (Secant)": secant_approximations,
+}
+
+df = pd.DataFrame(data)
+print(df)
+df.to_excel("comparative_analysis.xlsx", index=False)
