@@ -79,7 +79,7 @@ def SecantMethod(x0, x1, tol=0.001, max_iter=20):
     print("The root not found within the maximum number of iterations.")
     return approximations
 
-# Fixed-Point Iteration Method
+# Iteration Method
 def IterationMethod(x0, tol=0.001, max_iter=20):
     approximations = [x0]
     print("\nIteration Method:")

@@ -25,3 +25,8 @@ def BisectionMethod(a, b, nmax):
     print("The root: " + str(c) + ", f(c): " + str(CalcFormula(c)))
 
 BisectionMethod(a, b, 7)
+
+
+
+
+
